@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import{useNavigation} from '@react-navigation/native'
-import { IoAddCircle } from 'react-icons/io5';
+//import { IoAddCircle } from 'react-icons/io5';
 
  export default function brochure() {
  const navigation = useNavigation();
@@ -12,7 +12,7 @@ import { IoAddCircle } from 'react-icons/io5';
    style={styles.ButtomCadastro}
  onPress={() => navigation.navigate('CadastroProduct')}>
  </TouchableOpacity>
- <Text><IoAddCircle/>a</Text>
+ {/* <Text><IoAddCircle/>a</Text> */}
     </View>
   );
 }
