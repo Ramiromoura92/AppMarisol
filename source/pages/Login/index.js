@@ -14,7 +14,7 @@ const LoginScreen = ({ navigation }) => {
 
       if (user) {
         Alert.alert('Login bem-sucedido!');
-        navigation.navigate('brochure'); // Redirecionar para a página de brochura após login bem-sucedido
+        navigation.navigate('Brochure'); // Redirecionar para a página de brochura após login bem-sucedido
       } else {
         Alert.alert('Matrícula ou senha incorreta');
       }

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const brochure = ({ navigation }) => {
+const Brochure = ({ navigation }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -60,7 +60,7 @@ const brochure = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: 100,
   },
   item: {
     padding: 10,
@@ -80,4 +80,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default brochure;
+export default Brochure;
