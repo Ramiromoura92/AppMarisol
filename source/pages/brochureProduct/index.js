@@ -1,38 +1,78 @@
+import React, {useState} from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
+import { View, TextInput, Button, StyleSheet } from 'react-native';
+//import * as AsyncStorage from '../../../AsyncStorage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function CadastroProduct() {
- 
+const CadastroProduct = ({ navigation }) => {
+  const [codigop, setCodigop] = useState('');
+  const [lote, setLote] = useState('');
+  const [nome, setNome] = useState('');
+  const [quantidade, setQuantidade] = useState('');
+  const [dataent, setDataentrada] = useState('');
+
+  const saveData = async () => {
+    try {
+      const newItem = { codigop, lote, nome, quantidade, dataent };
+      const storedData = await AsyncStorage.getItem('storedData');
+      const data = storedData ? JSON.parse(storedData) : [];
+      const updatedData = [...data, newItem];
+      await AsyncStorage.setItem('storedData', JSON.stringify(updatedData));
+      navigation.goBack();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.cabecalho}>Cadastro de produtos</Text>
-      
-      <Text style={styles.text}>Nome</Text>
-      <TextInput style={styles.boxText} placeholder='Nome do produto'></TextInput>
-
-      <Text style={styles.text}>Lote</Text>
-      <TextInput style={styles.boxText} placeholder='Insira lote do produto'></TextInput>
-      
-      <Text style={styles.text}>Código de barra</Text>
-      <TextInput style={styles.boxText} placeholder='insira o código de barra do produto'></TextInput>
-      
-      <Text style={styles.text}>Quantidade</Text>
-      <TextInput style={styles.boxText} placeholder='Quantidade'></TextInput>
-     
-      <Text style={styles.text}>Data de chegada</Text>
-      <TextInput style={styles.boxText} placeholder='Insira a data'></TextInput>
-      
-      <Text style={styles.text}>Data de fabricação</Text>
-      <TextInput style={styles.boxText} placeholder='Insira a data de fabricação do produto'></TextInput>
-      
-      <Text style={styles.text}>Data de validade</Text>
-      <TextInput style={styles.boxText} placeholder='Data de valdiade do produto'></TextInput>
-      
-      <Text style={styles.text}></Text>
-      <TextInput style={styles.boxText} placeholder='A'></TextInput>
+      <TextInput
+        style={styles.input}
+        placeholder="Código do Produto"
+        value={codigop}
+        onChangeText={setCodigop}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Lote"
+        value={lote}
+        onChangeText={setLote}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Nome"
+        value={nome}
+        onChangeText={setNome}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Quantidade"
+        value={quantidade}
+        onChangeText={setQuantidade}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Data de Entrada"
+        value={dataent}
+        onChangeText={setDataentrada}
+      />
+      <Button title="Salvar" onPress={saveData} />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-})
+  container: {
+    flex: 1,
+    padding: 20,
+  },
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+  },
+});
+
+export default CadastroProduct;

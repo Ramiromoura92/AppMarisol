@@ -13,12 +13,12 @@ const navigation = useNavigation();
       </Animatable.View>
 
       <Animatable.View animation="fadeInUp" delay={500} style={styles.container2}>
-        <Text style={styles.text}>E-mail</Text>
-        <TextInput style={styles.boxText} placeholder='Digite o seu e-mail'
+        <Text style={styles.text}>Matricula</Text>
+        <TextInput style={styles.boxText} placeholder='Digite sua matricula'
         />
         
         <Text style={styles.text}>Senha</Text>
-        <TextInput style={styles.boxText} placeholder='Digite a sua senha'
+        <TextInput secureTextEntry={true} style={styles.boxText} placeholder='Digite a sua senha'
         />
 
         <TouchableOpacity style={styles.botao}
