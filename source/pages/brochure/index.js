@@ -34,8 +34,12 @@ const Brochure = ({ navigation }) => {
       console.error(error);
     }
   };
-
+  const Logout = () => {
   
+      navigation.navigate('Login'); 
+
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Lista de produtos</Text>
@@ -65,6 +69,11 @@ const Brochure = ({ navigation }) => {
         onPress={() => navigation.navigate('CadastroProduct')}
       >
         <Icon name="add" size={30} color="white" />
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.logoutButton} onPress={Logout}>
+
+        <Icon name="logout" size={30} color="white" />
+
       </TouchableOpacity>
     </View>
   );
@@ -119,7 +128,23 @@ const styles = StyleSheet.create({
   addButton: {
     position: 'absolute',
     right: 20,
-    bottom: 20,
+    bottom: 100, 
+    backgroundColor: '#D2691E',
+    borderRadius: 30,
+    width: 60,
+    height: 60,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 5,
+  },
+  logoutButton: {
+    position:'relative',
+    right: 1,
+    bottom: 76,
     backgroundColor: '#D2691E',
     borderRadius: 30,
     width: 60,

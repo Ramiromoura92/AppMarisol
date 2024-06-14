@@ -103,13 +103,22 @@ const CadastroProduct = ({ navigation }) => {
       />
       <View style={styles.imagePicker}>
         {image && <Image source={{ uri: image }} style={styles.image} />}
-        <Button title="Escolher Foto" onPress={pickImage} />
-        <Button title="Tirar Foto" onPress={takePhoto} />
+        
+        <TouchableOpacity style={styles.botao} onPress={pickImage}>
+        <Text style={styles.buttonText}>Tirar foto</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.botao} onPress={takePhoto}>
+        <Text style={styles.buttonText}>Galeria</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.botao} onPress={saveData}>
+          <Text style={styles.buttonText} padding={12} paddingHorizontal={15}>Salvar</Text>
+        </TouchableOpacity>
+
       </View>
-      <TouchableOpacity style={styles.botao} onPress={saveData}>
-        <Text style={styles.buttonText}>Salvar</Text>
-      </TouchableOpacity>
+      
+      
     </View>
+    
   );
 };
 
@@ -146,7 +155,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     marginTop: 5,
     borderRadius: 30,
-    width: '100%',
+    width: '80%',
     paddingVertical: 7,
     alignItems: 'center',
   },
