@@ -20,11 +20,12 @@ export default function Bemvindo() {
       </View>
 
     <Animatable.View delay={500} animation="fadeInUp" style={styles.caixaTexto}>
-        <Text style={styles.text}>Bem vindo(a) ao nosso aplicativo!{'\n'}</Text>
+
+        <Text style={styles.text}>Bem vindo(a){'\n'}</Text>
         
         <TouchableOpacity style={styles.button}
         onPress={ () => navigation.navigate('Login')}>
-            <Text style={styles.buttonText}>Login</Text>
+            <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>
       </Animatable.View>
 
@@ -36,7 +37,7 @@ export default function Bemvindo() {
 const styles = StyleSheet.create({
     container:{
         flex:1,
-        backgroundColor: '#8B4513'
+        backgroundColor: '#D2691E'
     },
     Logo:{
         flex:2,
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
     },
     caixaTexto:{
         flex:1,
-        backgroundColor:'#A0522D',
+        backgroundColor:'white',
         borderTopLeftRadius:30,
         borderTopRightRadius:30,
         padding:'5%'
@@ -54,10 +55,11 @@ const styles = StyleSheet.create({
         fontSize:18,
         fontWeight:'bold',
         marginBottom:40,
-        marginTop:20
+        marginTop:20,
+        marginHorizontal: '32%',
     },
     button:{
-        backgroundColor:'#FFDEAD',
+        backgroundColor:'#D2691E',
         position:'absolute',
         alignSelf:'center',
         bottom:'30%',
@@ -68,7 +70,7 @@ const styles = StyleSheet.create({
     },
     buttonText:{
         fontSize:17,
-        color: '#8B4513',
+        color: 'white',
         fontWeight: 'bold',
     }
   });
