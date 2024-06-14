@@ -1,86 +1,62 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import * as Animatable from 'react-native-animatable'
+const LoginScreen = ({ navigation }) => {
+  const [matricula, setMatricula] = useState('');
+  const [senha, setSenha] = useState('');
 
-import {useNavigation} from '@react-navigation/native'
-export default function Login() {
-const navigation = useNavigation();
+  const login = async () => {
+    try {
+      const storedUsers = await AsyncStorage.getItem('users');
+      const users = storedUsers ? JSON.parse(storedUsers) : [];
+      const user = users.find(user => user.matricula === matricula && user.senha === senha);
+
+      if (user) {
+        Alert.alert('Login bem-sucedido!');
+        navigation.navigate('Brochure'); // Redirecionar para a página de brochura após login bem-sucedido
+      } else {
+        Alert.alert('Matrícula ou senha incorreta');
+      }
+    } catch (error) {
+      console.error(error);
+      Alert.alert('Erro ao fazer login');
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <Animatable.View animation="fadeInLeft" delay={500} style={styles.cabecalho}>
-        <Text style={styles.titulo}>Entre em sua conta</Text>
-      </Animatable.View>
-
-      <Animatable.View animation="fadeInUp" delay={500} style={styles.container2}>
-        <Text style={styles.text}>E-mail</Text>
-        <TextInput style={styles.boxText} placeholder='Digite o seu e-mail'
-        />
-        
-        <Text style={styles.text}>Senha</Text>
-        <TextInput style={styles.boxText} placeholder='Digite a sua senha'
-        />
-
-        <TouchableOpacity style={styles.botao}
-        onPress={ () => navigation.navigate('home')}>
-          <Text style={styles.buttonText}>Entrar</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.botao}
-        onPress={ () => navigation.navigate('register')}>
-          <Text style={styles.buttonText}>Criar conta</Text>
-        </TouchableOpacity>
-      </Animatable.View>
+      <TextInput
+        style={styles.input}
+        placeholder="Matrícula"
+        value={matricula}
+        onChangeText={setMatricula}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Senha"
+        secureTextEntry
+        value={senha}
+        onChangeText={setSenha}
+      />
+      <Button title="Login" onPress={login} />
+      <Button title="Cadastre-se" onPress={() => navigation.navigate('Register')} />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  container:{
-    flex:1,
-    backgroundColor: '#8B4513'
-  },
-  cabecalho:{
-    marginTop: '20%',
-    marginBottom: '12%',
-    paddingStart: '8%'
-  },
-  titulo:{
-    fontSize:30,
-    fontWeight:'bold',
-  
-  },
-  container2:{
-    backgroundColor:'#A0522D',
+  container: {
     flex: 1,
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
-    paddingStart:'5%',
-    paddingEnd:'5%',
+    padding: 100,
   },
-  text:{
-    fontSize: 15,
-    marginTop:28,
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 10,
+    paddingHorizontal: 10,
   },
-  
-  boxText:{
-    borderBottomWidth: 1,
-    height:40,
-    marginBottom:12,
-    fontSize:15,
-  },
-  botao:{
-    backgroundColor:'#FFDEAD',
-    paddingVertical:8,
-    marginTop:14,
-    borderRadius:30,
-    width:'100%',
-    paddingVertical: 10,
-    alignItems:'center',
-  },
-  buttonText:{
-    fontWeight:'bold',
-    color: '#8B4513'
-  }
-}
-)
+});
+
+export default LoginScreen;

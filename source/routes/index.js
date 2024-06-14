@@ -3,7 +3,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 
 import Login from '../pages/Login'
 import Bemvindo from "../pages/Bemvindo";
-import home from "../pages/home";
 import register from "../pages/register";
 import brochure from "../pages/brochure";
 import CadastroProduct from "../pages/brochureProduct";
@@ -15,7 +14,6 @@ const Tab = createBottomTabNavigator();
 function Tabs() {
     return(
         <Tab.Navigator>
-            <Tab.Screen name="Home" component={home}/>
             <Tab.Screen name="catalago" component={brochure}/>
         </Tab.Navigator>
     )
@@ -35,13 +33,13 @@ export default function Routes(){
             options={{ headerShown: false}}/>
             
             <Stack.Screen
-            name="register"
+            name="Register"
             component={register}
             options={{ headerShown: false}}/>
 
             <Stack.Screen
-            name="home"
-            component={Tabs}
+            name="Brochure"
+            component={brochure}
             options={{ headerShown: false}}
             />
 

@@ -1,101 +1,72 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, } from 'react-native';
+import React, { useState } from 'react';
+import { View, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import * as Animatable from 'react-native-animatable'
+const RegisterScreen = ({ navigation }) => {
+  const [nome, setNome] = useState('');
+  const [matricula, setMatricula] = useState('');
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
 
-import {useNavigation} from '@react-navigation/native'
+  const register = async () => {
+    try {
+      const newUser = { nome, matricula, email, senha };
+      const storedUsers = await AsyncStorage.getItem('users');
+      const users = storedUsers ? JSON.parse(storedUsers) : [];
+      const updatedUsers = [...users, newUser];
+      await AsyncStorage.setItem('users', JSON.stringify(updatedUsers));
+      Alert.alert('Cadastro realizado com sucesso!');
+      navigation.goBack();
+    } catch (error) {
+      console.error(error);
+      Alert.alert('Erro ao cadastrar usuário');
+    }
+  };
 
-
-export default function register() {
-    const navigation = useNavigation();
-    return (
+  return (
     <View style={styles.container}>
-      <Animatable.View animation="fadeInLeft" delay={500} style={styles.topoPagina}>
-        <Text style={styles.titulo}>Cadastro</Text>
-      </Animatable.View>
-    
-    <Animatable.View animation="fadeInUp" delay={500} style={styles.container2}>
-      <ScrollView>
-      <Text style={styles.text}>Nome Completo</Text>
-      <TextInput style={styles.textBox} placeholder='Digite seu nome'/>
-
-      <Text style={styles.text}>CPF</Text>
-      <TextInput style={styles.textBox} placeholder='Digite o seu CPF'/>
-
-      <Text style={styles.text}>E-mail</Text>
-      <TextInput style={styles.textBox} placeholder='digite o seu e-mail'/>
-
-      <Text style={styles.text}>Senha</Text>
-      <TextInput style={styles.textBox} placeholder='digite a sua senha'/>
-
-      <Text style={styles.text}>Confirmar senha</Text>
-      <TextInput style={styles.textBox} placeholder='Digite novamente a senha'/>
-
-      <Text style={styles.text}>CEP</Text>
-      <TextInput style={styles.textBox} placeholder='Digite o seu CEP'/>
-
-      <Text style={styles.text}>Endereço</Text>
-      <TextInput style={styles.textBox} placeholder='Digite o seu endereço'/>
-
-      <Text style={styles.text}>Telefone</Text>
-      <TextInput style={styles.textBox} placeholder='Digite o telefone'/>
-      
-      <Text style={styles.text}>Celular</Text>
-      <TextInput style={styles.textBox} placeholder='Digite o celular'/>
-      
-      <TouchableOpacity style={styles.botao}
-      onPress={ () => navigation.navigate('Login')}>
-        <Text style={styles.buttonText}>Confirmar Cadastro</Text>
-      </TouchableOpacity>
-      </ScrollView>
-    </Animatable.View>
+      <TextInput
+        style={styles.input}
+        placeholder="Nome"
+        value={nome}
+        onChangeText={setNome}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Matrícula"
+        value={matricula}
+        onChangeText={setMatricula}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Senha"
+        secureTextEntry
+        value={senha}
+        onChangeText={setSenha}
+      />
+      <Button title="Cadastrar" onPress={register} />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  container:{
-    flex:1,
-    backgroundColor:'#8B4513',
-    overflowY:'scroll'
+  container: {
+    flex: 1,
+    padding: 100,
   },
-  topoPagina:{
-    marginTop: '10%',
-    marginBottom: '6%',
-    paddingStart: '5%'
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 10,
+    paddingHorizontal: 10,
   },
-  titulo:{
-    fontSize:30,
-    fontWeight:'bold'
-  },
-  container2:{
-    backgroundColor:'#A0522D',
-    flex:1,
-    borderTopLeftRadius:25,
-  borderTopRightRadius:25,
-  paddingStart:'5%',
-  paddingEnd:'5%',
-  overflowY:'scroll'
-  },
-  text:{
-    fontSize:15,
-    marginTop:15
-  },
-  textBox:{
-    borderBottomWidth:1,
-    height:40,
-    fontSize:15
-  },
-  botao:{
-    backgroundColor:'#FFDEAD',
-    paddingVertical:8,
-    marginTop:14,
-    borderRadius:30,
-    width:'100%',
-    alignItems:'center'
-  },
-  buttonText:{
-    fontWeight: 'bold',
-    color: '#8B4513'
-  }
 });
+
+export default RegisterScreen;

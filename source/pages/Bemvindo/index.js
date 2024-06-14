@@ -20,9 +20,7 @@ export default function Bemvindo() {
       </View>
 
     <Animatable.View delay={500} animation="fadeInUp" style={styles.caixaTexto}>
-        <Text style={styles.text}>Bem vindo(a) ao nosso aplicativo!{'\n'}
-        Entre e aproveite nosso catálago e nossas ofertas.
-        </Text>
+        <Text style={styles.text}>Bem vindo(a) ao nosso aplicativo!{'\n'}</Text>
         
         <TouchableOpacity style={styles.button}
         onPress={ () => navigation.navigate('Login')}>
