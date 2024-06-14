@@ -16,7 +16,7 @@ const CadastroProduct = ({ navigation }) => {
     try {
       const newItem = { codigop, lote, nome, quantidade, dataent, image };
       const storedData = await AsyncStorage.getItem('storedData');
-      const data = storedData ? JSON.parse(storedData) : [];
+      const data = storedData ? JSON.parse(storedData) : []; //verifica se existe uma string válida ou não nula. Se existir então é usado um array vazio como padrão
       const updatedData = [...data, newItem];
       await AsyncStorage.setItem('storedData', JSON.stringify(updatedData));
       navigation.goBack();
@@ -105,10 +105,10 @@ const CadastroProduct = ({ navigation }) => {
         {image && <Image source={{ uri: image }} style={styles.image} />}
         
         <TouchableOpacity style={styles.botao} onPress={pickImage}>
-        <Text style={styles.buttonText}>Tirar foto</Text>
+        <Text style={styles.buttonText}>Galeria</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.botao} onPress={takePhoto}>
-        <Text style={styles.buttonText}>Galeria</Text>
+        <Text style={styles.buttonText}>Tirar foto</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.botao} onPress={saveData}>
           <Text style={styles.buttonText} padding={12} paddingHorizontal={15}>Salvar</Text>

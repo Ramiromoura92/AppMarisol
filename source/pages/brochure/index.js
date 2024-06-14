@@ -6,12 +6,18 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 const Brochure = ({ navigation }) => {
   const [data, setData] = useState([]);
 
+  //Executa o código após a renderização dos componentes ou mudança de variáveis.
   useEffect(() => {
+
+    //addListener -> Registra um ouvinte que sera chamado sempre que um evento acontecer.
+    //focus -> Evento que indica que o ouvinte sera acionado quando o componente atual receber foco na navegação.
+    //loadData será chamado sempre que o componente for focado.
+    
     const unsubscribe = navigation.addListener('focus', () => {
       loadData();
     });
 
-    return unsubscribe;
+    return unsubscribe;//função de limpeza/ remove o ouvinte para evitar problemas de memória 
   }, [navigation]);
 
   const loadData = async () => {
