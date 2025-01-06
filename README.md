@@ -37,7 +37,7 @@ Este projeto foi desenvolvido utilizando o [React Native](https://reactnative.de
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seu-usuario/seu-repositorio.git
+   git clone git@github.com:Ramiromoura92/AppMarisol.git
    cd seu-repositorio
    ```
 
